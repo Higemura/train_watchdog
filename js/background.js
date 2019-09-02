@@ -1,3 +1,13 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
-	chrome.tabs.sendMessage(tab.id, "Action");
-});
+const filter = {
+	url:
+		[
+			{hostContains: "youtube.com"},
+			{hostPrefix: "youtube"}
+		]
+}
+  
+function logOnBefore(details) {
+	console.log("onBeforeNavigate to:::: " + details.url);
+}
+  
+chrome.webNavigation.onCompleted.addListener(logOnBefore, filter);
